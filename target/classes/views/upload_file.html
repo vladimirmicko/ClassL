@@ -1,0 +1,18 @@
+<div class="container height-full" id="upload_file">
+    <h2 id="upload_file-head">Upload file</h2>
+    <div class="container-fluid row">
+        <div class="col-md-6 row">
+            <div class="form-group">
+                <label for="upload_file-name_input">File name</label>
+                <input type="text" class="form-control" id="upload_file-name_input" placeholder="File name..." ng-model="vm.fileName">
+            </div>
+            <div class="input-group form-group">
+                <div id="upload_file-progress_bar" style="width: {{vm.fileItem.progress}}%"></div>
+                <div id="upload_file-success" class="glyphicon glyphicon-ok" ng-show="vm.fileItem.progress == 100"></div>
+                <input nv-file-select uploader="vm.fileUploader" type="file" value="Upload" class="form-control" id="upload_file-input" />
+                <span class="input-group-addon" ng-click="vm.fileItem.upload()" id="upload_file-button">Upload</span>
+            </div>
+            <button class="btn btn-primary" ng-click="!vm.fileName || !vm.fileUrl || vm.addFile(vm.fileName, vm.fileUrl)">Add file</button>
+        </div>
+    </div>
+</div>

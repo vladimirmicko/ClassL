@@ -1,0 +1,9 @@
+package hello;
+    public class Micko implements hello.LocalModule { 
+        private int xxx=5;
+        private int yyy=6;
+            public void testAdd() { 
+                    System.out.println(201+300); 
+                    System.out.println(xxx+yyy);
+           } 
+    }
