@@ -77,19 +77,22 @@ public class DynamicCompiler implements LocalModule {
 
 	/** run class from the compiled byte code file by URLClassloader */
 	public static void runIt() {
-		classOutputFolder = "/classes/demo";
-		File file = new File(classOutputFolder);
+//		classOutputFolder = "/classes/demo";
+//		File file = new File(classOutputFolder);
 
 		try {
-			URL url = file.toURL();
-			URL[] urls = new URL[] { url };
-
+//			URL url = file.toURL();
+//			URL[] urls = new URL[] { url };
 //			CustomClassLoader loader = new CustomClassLoader(ClassLoader.getSystemClassLoader());
 			
 			CustomClassLoader loader = new CustomClassLoader(hello.LocalModule.class.getClassLoader());
-			Class lm = loader.loadClass("hello.LocalModule");
-			Class thisClass = loader.loadClass("hello.Micko");
+//			Class lm = loader.loadClass("hello.LocalModule");
+			Class mickoClass = loader.loadClass("hello.Micko");
+			Class cickoClass = loader.loadClass("hello.Cicko");
 			System.out.println("loaded hello.Micko and hello.LocalModule");
+			
+			Object instanceMicko = mickoClass.newInstance();
+			Object instanceCicko = cickoClass.newInstance();
 
 			// ClassLoader loader = new URLClassLoader(urls);
 			// Class lm = loader.loadClass("hello.LocalModule");
@@ -97,23 +100,24 @@ public class DynamicCompiler implements LocalModule {
 			// Class thisClass = loader.loadClass("hello.Micko");
 			// System.out.println("loaded hello.Micko");
 
-			System.out.println("------------------------ Reflections");
-			Class params[] = {};
-			Object paramsObj[] = {};
-			Object instance = thisClass.newInstance();
-			Method thisMethod = thisClass.getDeclaredMethod("testAdd", params);
-			thisMethod.invoke(instance, paramsObj);
-			System.out.println("------------------------ Reflections");
+//			System.out.println("------------------------ Reflections");
+//			Class params[] = {};
+//			Object paramsObj[] = {};
+//			Method thisMethod = mickoClass.getDeclaredMethod("testAdd", params);
+//			thisMethod.invoke(instanceMicko, paramsObj);
+//			System.out.println("------------------------ Reflections");
 			
 			
 			System.out.println("------------------------ ClassLoader");
 			System.out.println(hello.LocalModule.class.getClassLoader());
 			System.out.println(hello.Micko.class.getClassLoader());
+			System.out.println(hello.Cicko.class.getClassLoader());
 			System.out.println("------------------------ ClassLoader");
 
-			LocalModule localModule = ((hello.LocalModule) instance);
-//			LocalModule localModule = ((LocalModule) new Micko());
-			localModule.testAdd();
+			LocalModule lmMicko = ((hello.LocalModule) instanceMicko);
+			LocalModule lmCicko = ((hello.LocalModule) instanceCicko);
+			lmMicko.testAdd();
+			lmCicko.testAdd();
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
