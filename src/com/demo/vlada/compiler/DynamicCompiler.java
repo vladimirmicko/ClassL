@@ -71,11 +71,13 @@ public class DynamicCompiler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("------------------------ Compiler - ClassLoader");
+		System.out.println("==========================================------------------------ Compiler - ClassLoader");
 		System.out.println(hello.LocalModule.class.getClassLoader());
 		System.out.println(hello.Micko.class.getClassLoader());
 		System.out.println(hello.Cicko.class.getClassLoader());
-		System.out.println("------------------------ Compiler - ClassLoader");
+		System.out.println(Thread.currentThread().getContextClassLoader());
+		System.out.println(DynamicCompiler.class.getClassLoader());
+		System.out.println("==========================================------------------------ Compiler - ClassLoader");
 		
 		
 		
