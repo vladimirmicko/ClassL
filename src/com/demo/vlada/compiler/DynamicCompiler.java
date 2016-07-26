@@ -21,7 +21,7 @@ import javax.tools.ToolProvider;
 import hello.LocalModule;
 import hello.Micko;
 
-public class DynamicCompiler implements LocalModule {
+public class DynamicCompiler {
 
 	private static String classOutputFolder = "/classes/demo";
 
@@ -54,7 +54,7 @@ public class DynamicCompiler implements LocalModule {
 
 		JavaFileObject so = null;
 		try {
-			so = new InMemoryJavaFileObject("hello.Micko", code);
+			so = new InMemoryJavaFileObject("hello.Licko", code);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -63,6 +63,22 @@ public class DynamicCompiler implements LocalModule {
 
 	/** compile your files by JavaCompiler */
 	public static void compile(Iterable<? extends JavaFileObject> files) {
+		CustomClassLoader loader = new CustomClassLoader(DynamicCompiler.class.getClassLoader());
+		try {
+			Class mickoClass = loader.loadClass("hello.Micko");
+			Class cickoClass = loader.loadClass("hello.Cicko");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("------------------------ Compiler - ClassLoader");
+		System.out.println(hello.LocalModule.class.getClassLoader());
+		System.out.println(hello.Micko.class.getClassLoader());
+		System.out.println(hello.Cicko.class.getClassLoader());
+		System.out.println("------------------------ Compiler - ClassLoader");
+		
+		
+		
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
 		MyDiagnosticListener c = new MyDiagnosticListener();
@@ -118,6 +134,7 @@ public class DynamicCompiler implements LocalModule {
 			LocalModule lmCicko = ((hello.LocalModule) instanceCicko);
 			lmMicko.testAdd();
 			lmCicko.testAdd();
+			lmCicko.testAdd1();
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -137,12 +154,6 @@ public class DynamicCompiler implements LocalModule {
 		Iterable<? extends JavaFileObject> files = Arrays.asList(file);
 		compile(files);
 		runIt();
-	}
-
-	@Override
-	public void testAdd() {
-		System.out.println("Dynamic Compiler class --------------------------------");
-
 	}
 
 }

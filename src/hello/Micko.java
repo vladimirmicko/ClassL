@@ -10,5 +10,10 @@ public class Micko implements hello.LocalModule {
 		System.out.println(hello.Micko.class.getClassLoader());
 		System.out.println("------------------------ MickoClass - ClassLoader");
 	}
+	
+	@Override
+	public void testAdd1() {
+		System.out.println("------------------------------------------------- testAdd1() metoda iz Micko klase.");
+	}
 
 }
