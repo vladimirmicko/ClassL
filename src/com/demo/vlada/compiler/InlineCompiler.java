@@ -32,15 +32,18 @@ public class InlineCompiler {
         sb.append("        System.out.println(\"Hello world\");\n");
         sb.append("    }\n");
         sb.append("}\n");
-
-        File helloWorldJava = new File("target/classes/com/demo/vlada/compiler/HelloWorld.java");
+    	exec(sb.toString());
+    }
+    
+    public static void exec(String code){
+        File helloWorldJava = new File("src/com/demo/vlada/compiler/HelloWorld.java");
         if (helloWorldJava.getParentFile().exists() || helloWorldJava.getParentFile().mkdirs()) {
 
             try {
                 Writer writer = null;
                 try {
                     writer = new FileWriter(helloWorldJava);
-                    writer.write(sb.toString());
+                    writer.write(code);
                     writer.flush();
                 } finally {
                     try {
@@ -58,7 +61,10 @@ public class InlineCompiler {
                 // I've added the .jar file that contains the DoStuff interface within in it...
                 List<String> optionList = new ArrayList<String>();
                 optionList.add("-classpath");
-                optionList.add(System.getProperty("java.class.path"));// + ";dist/InlineCompiler.jar");
+                optionList.add(System.getProperty("java.class.path"));// + ";dist/InlineCompiler.jar");   
+                optionList.add("-d");
+                optionList.add("target/classes");
+             
 
                 Iterable<? extends JavaFileObject> compilationUnit
                         = fileManager.getJavaFileObjectsFromFiles(Arrays.asList(helloWorldJava));

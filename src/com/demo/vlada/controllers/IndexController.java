@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.vlada.compiler.DynamicCompiler;
+import com.demo.vlada.compiler.InlineCompiler;
 import com.demo.vlada.dto.FileEDto;
 import com.demo.vlada.dto.TextAreaDto;
 import com.demo.vlada.entities.FileE;
@@ -33,7 +34,8 @@ public class IndexController {
 	public void executeTextArea(@RequestBody TextAreaDto text) {
 		System.out.println("-----------------------------Controller");
 		try {
-			DynamicCompiler.activate(text.getCodeText());
+//			DynamicCompiler.activate(text.getCodeText());
+			InlineCompiler.exec(text.getCodeText());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
