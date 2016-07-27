@@ -36,7 +36,7 @@ public class InlineCompiler {
     }
     
     public static void exec(String code){
-        File helloWorldJava = new File("src/com/demo/vlada/compiler/HelloWorld.java");
+        File helloWorldJava = new File("C:/MyDocuments/Eclipse/ClassLoading/VladaDemo/src/com/demo/vlada/compiler/HelloWorld.java");
         if (helloWorldJava.getParentFile().exists() || helloWorldJava.getParentFile().mkdirs()) {
 
             try {
